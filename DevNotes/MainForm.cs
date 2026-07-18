@@ -16,5 +16,11 @@ namespace DevNotes
         {
             InitializeComponent();
         }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            txtNote.Clear();
+            txtNote.Focus();
+        }
     }
 }
