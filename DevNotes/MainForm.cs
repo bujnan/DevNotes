@@ -42,5 +42,24 @@ namespace DevNotes
                 txtNote.Text = File.ReadAllText(selectedFile);
             }
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtNote.Text))
+            {
+                MessageBox.Show("No Note to Save", "Warning!");
+                return;
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save Note";
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            DialogResult result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string selectedFile = saveFileDialog.FileName;
+                File.WriteAllText(selectedFile,txtNote.Text);
+            }
+        }
     }
 }
