@@ -42,6 +42,7 @@
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(776, 230);
             this.txtNote.TabIndex = 0;
+            this.txtNote.TextChanged += new System.EventHandler(this.txtNote_TextChanged);
             // 
             // btnOpen
             // 
