@@ -18,10 +18,13 @@ namespace DevNotes
             InitializeComponent();
         }
 
+        private bool hasUnsavedChanges = false;
+
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtNote.Clear();
             txtNote.Focus();
+            hasUnsavedChanges = false;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -40,6 +43,7 @@ namespace DevNotes
             {
                 string selectedFile = openFileDialog.FileName;
                 txtNote.Text = File.ReadAllText(selectedFile);
+                hasUnsavedChanges = false;
             }
         }
 
@@ -59,7 +63,13 @@ namespace DevNotes
             {
                 string selectedFile = saveFileDialog.FileName;
                 File.WriteAllText(selectedFile,txtNote.Text);
+                hasUnsavedChanges = false;
             }
+        }
+
+        private void txtNote_TextChanged(object sender, EventArgs e)
+        {
+            hasUnsavedChanges = true;
         }
     }
 }
