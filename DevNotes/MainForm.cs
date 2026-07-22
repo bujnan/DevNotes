@@ -29,7 +29,19 @@ namespace DevNotes
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (!hasUnsavedChanges)
+            {
+                this.Close();
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("You have unsaved changes.\nDo you want to exit?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
