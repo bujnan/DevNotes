@@ -83,5 +83,23 @@ namespace DevNotes
         {
             hasUnsavedChanges = true;
         }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.N)
+            {
+                btnNew_Click(btnNew, EventArgs.Empty);
+            }
+
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                btnOpen_Click(btnOpen, EventArgs.Empty);
+            }
+
+            if (e.Control && e.KeyCode == Keys.S)
+            {
+                btnSave_Click(btnSave, EventArgs.Empty);
+            }
+        }
     }
 }

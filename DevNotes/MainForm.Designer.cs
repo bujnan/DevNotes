@@ -94,8 +94,10 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.txtNote);
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "DevNotes";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
