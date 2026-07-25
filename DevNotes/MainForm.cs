@@ -20,11 +20,16 @@ namespace DevNotes
 
         private bool hasUnsavedChanges = false;
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void NewNote()
         {
             txtNote.Clear();
             txtNote.Focus();
             hasUnsavedChanges = false;
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            NewNote();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
