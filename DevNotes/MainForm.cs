@@ -80,7 +80,7 @@ namespace DevNotes
             OpenNote();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void SaveNote()
         {
             if (string.IsNullOrEmpty(txtNote.Text))
             {
@@ -97,7 +97,7 @@ namespace DevNotes
                 try
                 {
                     string selectedFile = saveFileDialog.FileName;
-                    File.WriteAllText(selectedFile,txtNote.Text);
+                    File.WriteAllText(selectedFile, txtNote.Text);
                     hasUnsavedChanges = false;
                 }
                 catch (Exception)
@@ -105,6 +105,11 @@ namespace DevNotes
                     MessageBox.Show("Sorry! I can't save this note to Disk!");
                 }
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveNote();
         }
 
         private void txtNote_TextChanged(object sender, EventArgs e)
