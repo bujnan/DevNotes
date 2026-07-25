@@ -53,9 +53,16 @@ namespace DevNotes
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string selectedFile = openFileDialog.FileName;
-                txtNote.Text = File.ReadAllText(selectedFile);
-                hasUnsavedChanges = false;
+                try
+                {
+                    string selectedFile = openFileDialog.FileName;
+                    txtNote.Text = File.ReadAllText(selectedFile);
+                    hasUnsavedChanges = false;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Sorry! I can't Open the file.");
+                }
             }
         }
 
@@ -73,9 +80,16 @@ namespace DevNotes
             DialogResult result = saveFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                string selectedFile = saveFileDialog.FileName;
-                File.WriteAllText(selectedFile,txtNote.Text);
-                hasUnsavedChanges = false;
+                try
+                {
+                    string selectedFile = saveFileDialog.FileName;
+                    File.WriteAllText(selectedFile,txtNote.Text);
+                    hasUnsavedChanges = false;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Sorry! I can't save this note to Disk!");
+                }
             }
         }
 
