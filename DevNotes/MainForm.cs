@@ -32,7 +32,7 @@ namespace DevNotes
             NewNote();
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void ExitApplication()
         {
             if (!hasUnsavedChanges)
             {
@@ -46,7 +46,11 @@ namespace DevNotes
             {
                 this.Close();
             }
+        }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            ExitApplication();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
