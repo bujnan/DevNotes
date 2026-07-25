@@ -48,12 +48,7 @@ namespace DevNotes
             }
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            ExitApplication();
-        }
-
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void OpenNote()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open Note";
@@ -73,6 +68,16 @@ namespace DevNotes
                     MessageBox.Show("Sorry! I can't Open the file.");
                 }
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            ExitApplication();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            OpenNote();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
