@@ -44,6 +44,16 @@
             this.txtNote.TabIndex = 0;
             this.txtNote.TextChanged += new System.EventHandler(this.txtNote_TextChanged);
             // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(110, 285);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(113, 39);
+            this.btnNew.TabIndex = 1;
+            this.btnNew.Text = "New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
             // btnOpen
             // 
             this.btnOpen.Location = new System.Drawing.Point(259, 285);
@@ -73,16 +83,6 @@
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnNew
-            // 
-            this.btnNew.Location = new System.Drawing.Point(110, 285);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(113, 39);
-            this.btnNew.TabIndex = 1;
-            this.btnNew.Text = "New";
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // MainForm
             // 

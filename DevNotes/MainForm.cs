@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -20,14 +13,19 @@ namespace DevNotes
 
         private bool hasUnsavedChanges = false;
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void NewNote()
         {
             txtNote.Clear();
             txtNote.Focus();
             hasUnsavedChanges = false;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            NewNote();
+        }
+
+        private void ExitApplication()
         {
             if (!hasUnsavedChanges)
             {
@@ -41,10 +39,9 @@ namespace DevNotes
             {
                 this.Close();
             }
-
         }
 
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void OpenNote()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open Note";
@@ -66,7 +63,17 @@ namespace DevNotes
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            ExitApplication();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            OpenNote();
+        }
+
+        private void SaveNote()
         {
             if (string.IsNullOrEmpty(txtNote.Text))
             {
@@ -83,7 +90,7 @@ namespace DevNotes
                 try
                 {
                     string selectedFile = saveFileDialog.FileName;
-                    File.WriteAllText(selectedFile,txtNote.Text);
+                    File.WriteAllText(selectedFile, txtNote.Text);
                     hasUnsavedChanges = false;
                 }
                 catch (Exception)
@@ -91,6 +98,11 @@ namespace DevNotes
                     MessageBox.Show("Sorry! I can't save this note to Disk!");
                 }
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveNote();
         }
 
         private void txtNote_TextChanged(object sender, EventArgs e)
