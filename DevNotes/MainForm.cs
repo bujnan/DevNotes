@@ -12,12 +12,38 @@ namespace DevNotes
         }
 
         private bool hasUnsavedChanges = false;
+        private readonly string recentFilePath = 
+        Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "DevNotes",
+        "recent.txt");
 
         private void NewNote()
         {
             txtNote.Clear();
             txtNote.Focus();
             hasUnsavedChanges = false;
+        }
+
+        private void RememberRecentFile(string openedFile)
+        {
+            try
+            {
+                string folder = Path.GetDirectoryName(recentFilePath);
+        
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+        
+                File.WriteAllText(recentFilePath, openedFile);
+            }
+            catch
+            {
+                // Ignore.
+                // Failure to remember the recent file
+                // must never stop the application.
+            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -54,6 +80,7 @@ namespace DevNotes
                 {
                     string selectedFile = openFileDialog.FileName;
                     txtNote.Text = File.ReadAllText(selectedFile);
+                    RememberRecentFile(selectedFile);
                     hasUnsavedChanges = false;
                 }
                 catch (Exception)
