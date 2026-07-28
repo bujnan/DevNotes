@@ -9,6 +9,7 @@ namespace DevNotes
         public MainForm()
         {
             InitializeComponent();
+            OpenRecentFile();
         }
 
         private bool hasUnsavedChanges = false;
@@ -43,6 +44,32 @@ namespace DevNotes
                 // Ignore.
                 // Failure to remember the recent file
                 // must never stop the application.
+            }
+        }
+
+        private void OpenRecentFile()
+        {
+            try
+            {
+                if (!File.Exists(recentFilePath))
+                {
+                    return;
+                }
+        
+                string previousFile = File.ReadAllText(recentFilePath);
+        
+                if (!File.Exists(previousFile))
+                {
+                    return;
+                }
+        
+                txtNote.Text = File.ReadAllText(previousFile);
+                hasUnsavedChanges = false;
+            }
+            catch
+            {
+                // Ignore.
+                // Startup should never fail because of a recent file.
             }
         }
 
