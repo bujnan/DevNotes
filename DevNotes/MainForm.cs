@@ -9,15 +9,68 @@ namespace DevNotes
         public MainForm()
         {
             InitializeComponent();
+            OpenRecentFile();
         }
 
         private bool hasUnsavedChanges = false;
+        private readonly string recentFilePath = 
+        Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "DevNotes",
+        "recent.txt");
 
         private void NewNote()
         {
             txtNote.Clear();
             txtNote.Focus();
             hasUnsavedChanges = false;
+        }
+
+        private void RememberRecentFile(string openedFile)
+        {
+            try
+            {
+                string folder = Path.GetDirectoryName(recentFilePath);
+        
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+        
+                File.WriteAllText(recentFilePath, openedFile);
+            }
+            catch
+            {
+                // Ignore.
+                // Failure to remember the recent file
+                // must never stop the application.
+            }
+        }
+
+        private void OpenRecentFile()
+        {
+            try
+            {
+                if (!File.Exists(recentFilePath))
+                {
+                    return;
+                }
+        
+                string previousFile = File.ReadAllText(recentFilePath);
+        
+                if (!File.Exists(previousFile))
+                {
+                    return;
+                }
+        
+                txtNote.Text = File.ReadAllText(previousFile);
+                hasUnsavedChanges = false;
+            }
+            catch
+            {
+                // Ignore.
+                // Startup should never fail because of a recent file.
+            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -54,6 +107,7 @@ namespace DevNotes
                 {
                     string selectedFile = openFileDialog.FileName;
                     txtNote.Text = File.ReadAllText(selectedFile);
+                    RememberRecentFile(selectedFile);
                     hasUnsavedChanges = false;
                 }
                 catch (Exception)
