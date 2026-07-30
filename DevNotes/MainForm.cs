@@ -9,6 +9,7 @@ namespace DevNotes
         public MainForm()
         {
             InitializeComponent();
+            RestoreWindowState();
             OpenRecentFile();
         }
 
@@ -95,6 +96,33 @@ namespace DevNotes
             {
                 // Ignore.
                 // Failing to save the window state should never stop the application.
+            }
+        }
+
+        private void RestoreWindowState()
+        {
+            try
+            {
+                if (!File.Exists(windowStateFilePath))
+                {
+                    return;
+                }
+        
+                string savedState = File.ReadAllText(windowStateFilePath);
+        
+                if (savedState == FormWindowState.Maximized.ToString())
+                {
+                    this.WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+            }
+            catch
+            {
+                // Ignore.
+                // Startup should never fail because of an invalid window state.
             }
         }
 
