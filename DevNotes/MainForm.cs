@@ -18,6 +18,11 @@ namespace DevNotes
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "DevNotes",
         "recent.txt");
+        private readonly string windowStateFilePath =
+        Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "DevNotes",
+        "windowstate.txt");
 
         private void NewNote()
         {
@@ -73,6 +78,26 @@ namespace DevNotes
             }
         }
 
+        private void RememberWindowState()
+        {
+            try
+            {
+                string folder = Path.GetDirectoryName(windowStateFilePath);
+        
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+        
+                File.WriteAllText(windowStateFilePath, this.WindowState.ToString());
+            }
+            catch
+            {
+                // Ignore.
+                // Failing to save the window state should never stop the application.
+            }
+        }
+
         private void btnNew_Click(object sender, EventArgs e)
         {
             NewNote();
@@ -82,6 +107,7 @@ namespace DevNotes
         {
             if (!hasUnsavedChanges)
             {
+                RememberWindowState();
                 this.Close();
                 return;
             }
@@ -90,6 +116,7 @@ namespace DevNotes
 
             if (result == DialogResult.Yes)
             {
+                RememberWindowState();
                 this.Close();
             }
         }
